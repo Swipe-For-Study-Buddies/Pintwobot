@@ -7,6 +7,7 @@ from core.classes import Cog_Extention
 from MODULE import EMBED
 import keep_alive
 
+
 TOKEN = os.environ['TOKEN']
 BotCommandChannel = os.environ['BotCommandChannel']
 

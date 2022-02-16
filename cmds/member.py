@@ -1,3 +1,4 @@
+import asyncio
 import nextcord
 from nextcord.ext import commands
 from core.classes import Cog_Extention
@@ -7,14 +8,40 @@ from MODULE import EMBED
 class Member(Cog_Extention):
 
     @commands.Cog.listener()
-    async def on_member_join(self, member):
+    async def on_member_join(self, member: nextcord.Member):
       if member.guild.id == 935930665663340685:
         channel = member.guild.system_channel
         embed = EMBED.Embed()
         embed.add(name = "Welcome", value = f"{member.name} has droped in. \n", inline = False)
         embed = embed.output()
         await channel.send(embed = embed)
-
+        
+        guild:nextcord.Guild = self.client.get_guild(935930665663340685)
+        overwrite = {
+            self.guild.default_role: nextcord.PermissionOverwrite(read_messages=False),
+            member: nextcord.PermissionOverwrite(read_messages=True)
+        }
+        channel = guild.create_text_channel(
+          name="intro",
+          overwrites=overwrite,
+          position=4
+        )
+        admin_channel = self.client.get_channel(943501281841016866)
+        await channel.send(member.mention)
+        await channel.send("for the full experience, please typing `p!tags` to get the role,\
+                           if you've got the roles, typing `p!close_tag to finish the verify,\
+                           after admin accept your appilcation,\
+                           you could enjiy your journal in this server:D")
+        await admin_channel.send(f"{member.name} is come in")
+        
+    @commands.command()
+    async def close_tag(self, ctx: commands.Context):
+      if ctx.channel.name == "intro":
+            await ctx.send("Your going to close this channal...")
+            asyncio.sleep(0.5)
+            await ctx.channel.delete()
+    
+    
     @commands.Cog.listener()
     async def on_member_remove(self, member):
       if member.guild.id == 935930665663340685:
