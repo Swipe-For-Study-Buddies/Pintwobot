@@ -142,7 +142,7 @@ class Roles(Cog_Extention):
             roles[role_category] = {}
         roles[role_category][create.role.name] = create.role.id
         
-        with open('JSONHOME/role.json', 'w', encoding='utf8') as dataFile:
+        with open('JSONHome/role.json', 'w', encoding='utf8') as dataFile:
             json.dump(roles, dataFile, ensure_ascii=False, indent=4)
             dataFile.close()
         
