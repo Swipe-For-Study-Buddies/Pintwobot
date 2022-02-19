@@ -18,27 +18,31 @@ class Member(Cog_Extention):
         
         guild:nextcord.Guild = self.client.get_guild(935930665663340685)
         overwrite = {
-            self.guild.default_role: nextcord.PermissionOverwrite(read_messages=False),
+            guild.default_role: nextcord.PermissionOverwrite(read_messages=False),
             member: nextcord.PermissionOverwrite(read_messages=True)
         }
-        channel = guild.create_text_channel(
+        channel = await guild.create_text_channel(
           name="intro",
           overwrites=overwrite,
           position=4
         )
+        welcome_message = ("```"
+                           "Welcome to PinTwo, "
+                          "for the full experience, please typing `p!tags` to get the role, "
+                          "if you've got the roles, typing `p!close_tag` to finish the verify, "
+                          "after admin accept your appilcation, "
+                          "you could enjoy your journal in this server:D"
+                          "```")
         admin_channel = self.client.get_channel(943501281841016866)
         await channel.send(member.mention)
-        await channel.send("for the full experience, please typing `p!tags` to get the role,\
-                           if you've got the roles, typing `p!close_tag to finish the verify,\
-                           after admin accept your appilcation,\
-                           you could enjiy your journal in this server:D")
+        await channel.send(welcome_message)
         await admin_channel.send(f"{member.name} is come in")
         
     @commands.command()
     async def close_tag(self, ctx: commands.Context):
       if ctx.channel.name == "intro":
             await ctx.send("Your going to close this channal...")
-            asyncio.sleep(0.5)
+            await asyncio.sleep(0.5)
             await ctx.channel.delete()
     
     

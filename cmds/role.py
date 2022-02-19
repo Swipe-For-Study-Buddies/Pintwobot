@@ -74,7 +74,7 @@ class Dropdown(nextcord.ui.Select):
         # self.item_keys = list(self.item_dict.keys())
         view = RoleDropdownView(self.client, self.choose, self.ctx)
 
-        await interaction.response.send_message("bruh", view=view)
+        await interaction.response.send_message("select some of these tags :D", view=view)
     
 class DropdownView(nextcord.ui.View):
     def __init__(self, client, ctx):
@@ -129,7 +129,7 @@ class Roles(Cog_Extention):
         view = DropdownView(self.client, ctx)
 
         # Sending a message containing our view
-        await ctx.send('Pick an item:', view=view)
+        await ctx.send('Pick an category:', view=view)
     
     @commands.command()
     @commands.check(check)

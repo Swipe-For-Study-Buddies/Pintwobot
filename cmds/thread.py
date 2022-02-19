@@ -123,7 +123,7 @@ class Thread(Cog_Extention):
                 Roles_list.append(role)
         view = DropdownView(self.client, Roles_list, USER)
         channel = interaction.channel
-        await interaction.response.send_message("hello", view= view) 
+        await interaction.response.send_message("choose a tags that you would like to chat for", view= view) 
         
     @commands.command()
     async def close(self, ctx: commands.Context):
