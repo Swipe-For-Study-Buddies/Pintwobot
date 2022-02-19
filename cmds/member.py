@@ -22,7 +22,7 @@ class Member(Cog_Extention):
             member: nextcord.PermissionOverwrite(read_messages=True)
         }
         channel = await guild.create_text_channel(
-          name="intro",
+          name=f"intro-{member.name}",
           overwrites=overwrite,
           position=4
         )
@@ -40,12 +40,16 @@ class Member(Cog_Extention):
         
     @commands.command()
     async def close_tag(self, ctx: commands.Context):
-      if ctx.channel.name == "intro":
+      if ctx.channel.name.startswith("intro"):
             await ctx.send("Your going to close this channal...")
+            if ctx.author.name == ctx.channel.name[6:]:
+                role = ctx.guild.get_role(944496251938942996) 
+                await ctx.author.add_roles(role)   
             await asyncio.sleep(0.5)
             await ctx.channel.delete()
+            await ctx.author.send("You can enjoy your journal now")
     
-    
+ 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
       if member.guild.id == 935930665663340685:
