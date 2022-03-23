@@ -2,7 +2,6 @@ import nextcord
 from nextcord import Interaction
 from nextcord.ext import commands
 import os
-import requests
 from core.classes import Cog_Extention
 from MODULE import EMBED
 
@@ -22,11 +21,7 @@ def check(ctx):
 @client.event
 async def on_ready():
   print('>> Bot is online ')
-  r = requests.head(url="https://discord.com/api/v1")
-  try:
-      print(f"Rate limit {int(r.headers['Retry-After']) / 60} minutes left")
-  except:
-      print("No rate limit")
+
       
 
 
