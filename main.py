@@ -7,8 +7,9 @@ from core.classes import Cog_Extention
 from MODULE import EMBED
 import keep_alive
 
-TOKEN = os.environ['TOKEN']
-BotCommandChannel = os.environ['BotCommandChannel']
+TOKEN = "OTM1OTM1NDIyNDAyNTM1NTA0.YfF3yQ.eBcNl6vrvu6_2HpaOoPOxIxCpLs"
+# TOKEN = os.environ['TOKEN']
+# BotCommandChannel = os.environ['BotCommandChannel']
 
 
 intents = nextcord.Intents.all()
@@ -72,7 +73,8 @@ async def unload(ctx, file_name):
 
 for file in os.listdir('./cmds'):
     if file.endswith('.py') :
-        client.load_extension(f"cmds.{file[:-3]}")
+        if file != 'test.py':
+            client.load_extension(f"cmds.{file[:-3]}")
 
 if __name__ == "__main__":
   keep_alive.keep_alive() 

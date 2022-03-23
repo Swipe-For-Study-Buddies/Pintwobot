@@ -1,7 +1,6 @@
 from http import client
 import nextcord
 from nextcord.ext import commands
-from numpy import choose
 from core.classes import Cog_Extention
 import json
 
@@ -19,6 +18,8 @@ def check(ctx: commands.Context) -> bool:
         return False
     
 class Roles(Cog_Extention):
+    
+    global PinTwo
     
     @commands.command()
     async def tags(self, ctx):
@@ -100,28 +101,26 @@ class Dropdown(nextcord.ui.Select, Roles):
         super().__init__(placeholder='Select one of these option...',
                          min_values=1,max_values=1, options=options)
     async def callback(self, interaction: nextcord.Interaction):
+        self.choose = self.values[0]
         # self.item_dict = data_dict[self.values[0]]
         # self.item_keys = list(self.item_dict.keys())
-        self.value = self.values[0]
-        print(self.value)
-        view = RoleDropdownView(self.value)
+        view = RoleDropdownView()
 
         await interaction.response.send_message("select some of these tags :D", view=view)      
 
 class RoleDropdownView(nextcord.ui.View):
-    def __init__(self, value):
+    def __init__(self):
         super().__init__()
 
         # Adds the dropdown to our view object.
-        self.add_item(RoleDropdown(value))
+        self.add_item(RoleDropdown())
         
-class RoleDropdown(nextcord.ui.Select, Roles):
-    def __init__(self, value):
+class RoleDropdown(Dropdown):
+    def __init__(self):
         super().__init__()
-        self.value = value
         # Set the options that will be presented inside the dropdown
         options = []
-        for data in roles[self.value].items():
+        for data in roles[self.choose].items():
             options.append(nextcord.SelectOption(
                 label=data[0], description=f'{data[0]}', value=data[1]))
 
@@ -137,6 +136,3 @@ class RoleDropdown(nextcord.ui.Select, Roles):
             role = guild.get_role(int(value))    
             await user.add_roles(role)  
         await interaction.response.send_message("success")
-        
-def setup(client):
-    client.add_cog(Roles(client)) 
