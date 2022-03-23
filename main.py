@@ -5,7 +5,7 @@ import os
 import requests
 from core.classes import Cog_Extention
 from MODULE import EMBED
-import keep_alive
+
 
 TOKEN = os.environ['TOKEN']
 BotCommandChannel = os.environ['BotCommandChannel']
@@ -75,5 +75,4 @@ for file in os.listdir('./cmds'):
         client.load_extension(f"cmds.{file[:-3]}")
 
 if __name__ == "__main__":
-  keep_alive.keep_alive() 
   client.run(TOKEN)
