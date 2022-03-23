@@ -5,7 +5,7 @@ import os
 import requests
 from core.classes import Cog_Extention
 from MODULE import EMBED
-import keep_alive
+
 
 TOKEN = "OTM1OTM1NDIyNDAyNTM1NTA0.YfF3yQ.eBcNl6vrvu6_2HpaOoPOxIxCpLs"
 # TOKEN = os.environ['TOKEN']
@@ -77,5 +77,4 @@ for file in os.listdir('./cmds'):
             client.load_extension(f"cmds.{file[:-3]}")
 
 if __name__ == "__main__":
-  keep_alive.keep_alive() 
   client.run(TOKEN)
