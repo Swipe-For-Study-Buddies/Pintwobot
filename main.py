@@ -7,9 +7,8 @@ from core.classes import Cog_Extention
 from MODULE import EMBED
 
 
-TOKEN = "OTM1OTM1NDIyNDAyNTM1NTA0.YfF3yQ.eBcNl6vrvu6_2HpaOoPOxIxCpLs"
-# TOKEN = os.environ['TOKEN']
-# BotCommandChannel = os.environ['BotCommandChannel']
+TOKEN = os.environ['TOKEN']
+BotCommandChannel = os.environ['BotCommandChannel']
 
 
 intents = nextcord.Intents.all()
